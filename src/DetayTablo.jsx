@@ -7,7 +7,6 @@ import { ExportButtonSVG } from './ExportButtonSVG';
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule, CsvExportModule]);
-
 const butonlar = [
   {
     butonAdi: "Sevk Fiş Detayları Raporu",
@@ -58,6 +57,7 @@ const butonlar = [
     sorgu: "kayraEIrsaliye"
   },
 ]
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 function DetayTablo() {
   const gridRef = useRef(null)
@@ -79,7 +79,7 @@ function DetayTablo() {
 
   const fetchDetayRaporu = async (raporTipi) => {
     setLoading(true)
-    const url = `http://localhost:8000/detayraporlari?rapor=${raporTipi}`;
+    const url = `http://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
