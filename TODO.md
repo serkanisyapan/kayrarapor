@@ -1,0 +1,4 @@
+- [ ] make each columns wide enough so the longest cell can fit in the excel file
+- [ ] remove the columns in the excel file that got removed by user
+- [ ] move the columns in the excel file that got moved by user
+- [ ] add uptading 'Siparis' status
