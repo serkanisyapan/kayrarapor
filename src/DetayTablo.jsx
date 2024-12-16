@@ -58,6 +58,7 @@ const butonlar = [
   },
 ]
 const BASE_URL = import.meta.env.VITE_BASE_URL
+const TYPE = import.meta.env.DEV ? 'http' : 'https'
 
 function DetayTablo() {
   const gridRef = useRef(null)
@@ -79,7 +80,7 @@ function DetayTablo() {
 
   const fetchDetayRaporu = async (raporTipi) => {
     setLoading(true)
-    const url = `http://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
+    const url = `${TYPE}://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
