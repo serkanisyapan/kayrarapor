@@ -37,6 +37,30 @@ function DetayTablo() {
     } catch(error) {
       console.log(error.message);
     }}
+  
+  const siparisleriKapat = async() => {
+    const url = `${TYPE}://${BASE_URL}/sipariskapat`;
+    const kapatilacakSiparisler = secilenSiparisleriBul()
+    if (!kapatilacakSiparisler || kapatilacakSiparisler.length === 0) return
+    try {
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ siparisler: kapatilacakSiparisler}),
+      })
+      console.log(await response.json())
+    } catch (err) {
+      console.err(err)
+    }
+  }
+
+  const secilenSiparisleriBul = () => {
+    const siparisler = gridRef.current.api.getSelectedRows()
+    return siparisler.map(siparis => siparis['RecId'])
+  }
 
   const cacheRapor = (fetchedRapor, raporTipi) => {
     setCachedRapor((prevCache) => ({...prevCache, [raporTipi]: fetchedRapor}))
@@ -98,6 +122,7 @@ function DetayTablo() {
             {...gridOptions}
           />
         </div>}
+        {raporName === 'Açık Sipariş Detay Raporu' && <button className={'rapor-button'} onClick={() => siparisleriKapat()}>Siparişleri Kapat</button>}
     </>
   )}
 
