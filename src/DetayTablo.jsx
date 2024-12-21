@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { utils, writeFile } from "xlsx"
 import { AgGridReact } from 'ag-grid-react';
 import { AllCommunityModule, CsvExportModule, ModuleRegistry } from 'ag-grid-community'; 
+import { AG_GRID_LOCALE_TR } from '@ag-grid-community/locale';
 import './App.css'
 import { ExportButtonSVG } from './ExportButtonSVG';
 
@@ -57,6 +58,15 @@ const butonlar = [
     sorgu: "kayraEIrsaliye"
   },
 ]
+const gridOptions = {
+  localeText: AG_GRID_LOCALE_TR,
+  pagination: true,
+  paginationPageSize: 50,
+  paginationPageSizeSelector: [50, 100, 200],
+  animateRows:false,
+  enableCellTextSelection: true,
+  rowSelection: { mode: 'multiRow', selectAll:'filtered' }
+}
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const TYPE = import.meta.env.DEV ? 'http' : 'https'
 
@@ -72,6 +82,7 @@ function DetayTablo() {
     if (detayRaporu.length === 0) return
     const getColDefs = (detayRaporu) => {
         const firstEntry = detayRaporu[0];
+        delete firstEntry['RecId']
         return Object.keys(firstEntry).map(key => ({field: key, filter: true}))
     }
     const newColDef = getColDefs(detayRaporu)
@@ -147,13 +158,9 @@ function DetayTablo() {
         <div style={{height: 600}}>
           <AgGridReact 
             ref={gridRef}
-            pagination={true}
-            paginationPageSize={50}
-            paginationPageSizeSelector={[50, 100, 200]}
-            animateRows={false}
-            enableCellTextSelection={true}
             rowData={detayRaporu} 
             columnDefs={colDefs}
+            {...gridOptions}
           />
         </div>}
     </>
