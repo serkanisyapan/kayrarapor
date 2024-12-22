@@ -9,7 +9,7 @@ import './App.css'
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule, CsvExportModule]);
 const BASE_URL = import.meta.env.VITE_BASE_URL
-const TYPE = import.meta.env.DEV ? 'http' : 'https'
+// const TYPE = import.meta.env.DEV ? 'http' : 'https'
 
 function DetayTablo() {
   const gridRef = useRef(null)
@@ -22,7 +22,7 @@ function DetayTablo() {
 
   const fetchDetayRaporu = async (raporTipi) => {
     setLoading(true)
-    const url = `${TYPE}://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
+    const url = `http://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -39,22 +39,21 @@ function DetayTablo() {
     }}
   
   const siparisleriKapat = async() => {
-    const url = `${TYPE}://${BASE_URL}/sipariskapat`;
+    const url = `http://${BASE_URL}/sipariskapat`;
     const kapatilacakSiparisler = secilenSiparisleriBul()
-    if (!kapatilacakSiparisler || kapatilacakSiparisler.length === 0) return
-    try {
-      const response = await fetch(url, {
+    const isConfirmed = confirm(`Siparişleri kapatmak istiyor musunuz? (${kapatilacakSiparisler.length} sipariş)`)
+    if (!kapatilacakSiparisler || kapatilacakSiparisler.length === 0 || !isConfirmed) return
+    await fetch(url, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({ siparisler: kapatilacakSiparisler}),
-      })
-      console.log(await response.json())
-    } catch (err) {
-      console.err(err)
-    }
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message))
+    .catch(error => console.error(error))
   }
 
   const secilenSiparisleriBul = () => {
@@ -122,7 +121,7 @@ function DetayTablo() {
             {...gridOptions}
           />
         </div>}
-        {raporName === 'Açık Sipariş Detay Raporu' && <button className={'rapor-button'} onClick={() => siparisleriKapat()}>Siparişleri Kapat</button>}
+        <button className={'rapor-button'} onClick={() => siparisleriKapat()}>Siparişleri Kapat</button>
     </>
   )}
 
