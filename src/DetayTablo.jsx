@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { AllCommunityModule, CsvExportModule, ModuleRegistry } from 'ag-grid-community'; 
+import { toast } from 'react-toastify';
 import { ExportButtonSVG } from './ExportButtonSVG';
 import { useExcelFile } from './hooks/useExcelFile';
 import { gridOptions, butonlar } from './data';
@@ -18,6 +19,7 @@ function DetayTablo() {
   const [cachedRapor, setCachedRapor] = useState({})
   const [loading, setLoading] = useState(false)
   const [colDefs, setColDefs] = useState([])
+  const [seciliSiparisSayisi, setSeciliSiparisSayisi] = useState(0)
   const { importExcelFile } = useExcelFile(gridRef, raporName)
 
   const fetchDetayRaporu = async (raporTipi) => {
@@ -52,13 +54,18 @@ function DetayTablo() {
         body: JSON.stringify({ siparisler: kapatilacakSiparisler}),
     })
     .then(response => response.json())
-    .then(data => alert(data.message))
+    .then(data => {
+      const ref = gridRef.current.api
+      toast.success(data.message)
+      ref.setFilterModel(null)
+      ref.deselectAll()
+    } )
     .catch(error => console.error(error))
   }
 
   const secilenSiparisleriBul = () => {
     const siparisler = gridRef.current.api.getSelectedRows()
-    return siparisler.map(siparis => siparis['RecId'])
+    return siparisler.map(siparis => siparis['recId'])
   }
 
   const cacheRapor = (fetchedRapor, raporTipi) => {
@@ -69,7 +76,7 @@ function DetayTablo() {
     if (detayRaporu.length === 0) return
     const getColDefs = (detayRaporu) => {
         const firstEntry = detayRaporu[0];
-        delete firstEntry['RecId']
+        delete firstEntry['recId']
         return Object.keys(firstEntry).map(key => ({field: key, filter: true}))
     }
     const newColDef = getColDefs(detayRaporu)
@@ -119,9 +126,16 @@ function DetayTablo() {
             rowData={detayRaporu} 
             columnDefs={colDefs}
             {...gridOptions}
+            onSelectionChanged={() => {
+              const seciliSiparisler = gridRef.current.api.getSelectedRows()
+              setSeciliSiparisSayisi(seciliSiparisler.length)
+            }}
           />
         </div>}
-        <button className={'rapor-button'} onClick={() => siparisleriKapat()}>Siparişleri Kapat</button>
+        {raporName === "Açık Sipariş Detay Raporu" && 
+        <button disabled={!seciliSiparisSayisi} className={'rapor-button'} onClick={() => siparisleriKapat()}>
+          Siparişleri Kapat ({`${seciliSiparisSayisi} sipariş`}) 
+        </button>}
     </>
   )}
 
