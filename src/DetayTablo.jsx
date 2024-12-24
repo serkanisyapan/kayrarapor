@@ -4,13 +4,13 @@ import { AllCommunityModule, CsvExportModule, ModuleRegistry } from 'ag-grid-com
 import { toast } from 'react-toastify';
 import { ExportButtonSVG } from './ExportButtonSVG';
 import { useExcelFile } from './hooks/useExcelFile';
+import { useCopyCell } from './hooks/useCopyCell';
 import { gridOptions, butonlar } from './data';
 import './App.css'
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule, CsvExportModule]);
 const BASE_URL = import.meta.env.VITE_BASE_URL
-// const TYPE = import.meta.env.DEV ? 'http' : 'https'
 
 function DetayTablo() {
   const gridRef = useRef(null)
@@ -71,6 +71,15 @@ function DetayTablo() {
   const cacheRapor = (fetchedRapor, raporTipi) => {
     setCachedRapor((prevCache) => ({...prevCache, [raporTipi]: fetchedRapor}))
   }
+  
+  const handleCopyCellValue = () => {
+    const api = gridRef.current.api
+    const focusedCell =  api.getFocusedCell();
+    const row = api.getDisplayedRowAtIndex(focusedCell.rowIndex)
+    const cellValue = api.getCellValue({rowNode: row, colKey: focusedCell.column})
+    navigator.clipboard.writeText(cellValue);
+  }
+  useCopyCell(handleCopyCellValue)
 
   useEffect(() => {
     if (detayRaporu.length === 0) return
