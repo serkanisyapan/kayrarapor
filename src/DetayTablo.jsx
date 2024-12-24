@@ -36,8 +36,9 @@ function DetayTablo() {
       cacheRapor(json.recordset, raporTipi)
       setRaporName(getRaporName.butonAdi)
       setLoading(false)
-    } catch(error) {
-      console.log(error.message);
+    } catch {
+      toast.error("Bir hata oluştu. Tekrar denemek için tıkla.", {onClick: () => fetchDetayRaporu(raporTipi)});
+      setLoading(false)
     }}
   
   const siparisleriKapat = async() => {
@@ -55,12 +56,12 @@ function DetayTablo() {
     })
     .then(response => response.json())
     .then(data => {
-      const ref = gridRef.current.api
+      const findRapor = butonlar.find(buton => buton.butonAdi === raporName)
       toast.success(data.message)
-      ref.setFilterModel(null)
-      ref.deselectAll()
+      fetchDetayRaporu(findRapor.sorgu)
+      gridRef.current.api.setFilterModel(null)
     } )
-    .catch(error => console.error(error))
+    .catch(() => toast.error("Siparişler kapatılamadı"))
   }
 
   const secilenSiparisleriBul = () => {
