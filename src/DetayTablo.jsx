@@ -10,6 +10,7 @@ import { ExportButtonSVG } from "./ExportButtonSVG";
 import { butonlar, gridOptions } from "./data";
 import { useCopyCell } from "./hooks/useCopyCell";
 import { useExcelFile } from "./hooks/useExcelFile";
+import resetfilter from "./resetfilter.png";
 import "./App.css";
 
 // Register all Community features
@@ -82,7 +83,7 @@ function DetayTablo() {
 
   const secilenSiparisleriBul = () => {
     const siparisler = gridRef.current.api.getSelectedRows();
-    return siparisler.map((siparis) => siparis["recId"]);
+    return siparisler.map((siparis) => siparis.recId);
   };
 
   const cacheRapor = (fetchedRapor, raporTipi) => {
@@ -108,7 +109,8 @@ function DetayTablo() {
     if (detayRaporu.length === 0) return;
     const getColDefs = (detayRaporu) => {
       const firstEntry = detayRaporu[0];
-      delete firstEntry["recId"];
+      // biome-ignore lint/performance/noDelete: <explanation>
+      delete firstEntry.recId;
       return Object.keys(firstEntry).map((key) => ({
         field: key,
         filter: true,
@@ -147,8 +149,8 @@ function DetayTablo() {
           <option value="" disabled>
             Rapor seçin
           </option>
-          {butonlar.map((buton, index) => (
-            <option key={index} value={buton.sorgu}>
+          {butonlar.map((buton) => (
+            <option key={buton.sorgu} value={buton.sorgu}>
               {buton.butonAdi}
             </option>
           ))}
@@ -156,14 +158,23 @@ function DetayTablo() {
         <div
           style={{
             display: "flex",
+            flexWrap: "wrap",
             gap: "10px",
-            justifyContent: "center",
             alignItems: "center",
           }}
         >
+          <button
+            style={{ marginRight: "30%", background: "none", border: "none" }}
+            className="rapor-button"
+            type="button"
+            onClick={() => gridRef.current.api.setFilterModel(null)}
+          >
+            <img src={resetfilter} alt="reset filter" />
+          </button>
           <h2>{raporName}</h2>
           {raporName && (
             <button
+              type="button"
               className={"rapor-button"}
               onClick={() => importExcelFile()}
             >
@@ -184,8 +195,8 @@ function DetayTablo() {
           />
         </div>
         {raporName === "Açık Sipariş Detay Raporu" && (
-          // so this button is aligned with the table on the left but i want it to be shorted not 95% width
           <button
+            type="button"
             disabled={!seciliSiparisSayisi}
             className={"rapor-button"}
             onClick={() => siparisleriKapat()}
