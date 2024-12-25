@@ -1,54 +1,54 @@
 * {
-    font-family: 'Times New Roman', Times, serif
+  font-family: "Times New Roman", Times, serif;
 }
 .rapor-button {
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 2px 8px; /* Padding for the button */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover animation */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    display: flex;
-    align-items: center;
-    gap: 3px
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 2px 8px; /* Padding for the button */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover animation */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
 .rapor-button:hover {
-    transform: translateY(-2px); /* Slight lift effect */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
 }
 
 .rapor-button:active {
-    transform: translateY(0); /* Reset lift on click */
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow on click */
+  transform: translateY(0); /* Reset lift on click */
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow on click */
 }
 
 button:disabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 select {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    appearance: none;
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
 }
 
 select:disabled {
-    cursor: not-allowed
+  cursor: not-allowed;
 }
 
-.ag-body-vertical-scroll { 
+.ag-body-vertical-scroll {
   display: none;
 }

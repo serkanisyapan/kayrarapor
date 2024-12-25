@@ -1,64 +1,64 @@
-import { AG_GRID_LOCALE_TR } from '@ag-grid-community/locale';
+import { AG_GRID_LOCALE_TR } from "@ag-grid-community/locale";
 
 const gridOptions = {
   localeText: AG_GRID_LOCALE_TR,
   pagination: true,
   paginationPageSize: 50,
   paginationPageSizeSelector: [50, 100, 200],
-  animateRows:false,
+  animateRows: false,
   enableCellTextSelection: true,
-  rowSelection: { mode: 'multiRow', selectAll:'filtered' }
-}
+  rowSelection: { mode: "multiRow", selectAll: "filtered" },
+};
 
 const butonlar = [
   {
     butonAdi: "Sevk Fiş Detayları Raporu",
-    sorgu: "sevkFis"
+    sorgu: "sevkFis",
   },
   {
     butonAdi: "Açık Sipariş Detay Raporu",
-    sorgu: "acikSiparis"
+    sorgu: "acikSiparis",
   },
   {
     butonAdi: "Satın Alma Detay Raporu",
-    sorgu: "satinAlmaDetay"
+    sorgu: "satinAlmaDetay",
   },
   {
     butonAdi: "Teklif Detay Raporu",
-    sorgu: "teklifDetay"
+    sorgu: "teklifDetay",
   },
   {
     butonAdi: "Mal Alım Fiş Detayları Raporu",
-    sorgu: "malAlimFisDetay"
+    sorgu: "malAlimFisDetay",
   },
   {
     butonAdi: "Açık Siparişler Özet Raporu",
-    sorgu: "acikSiparisOzet"
+    sorgu: "acikSiparisOzet",
   },
   {
     butonAdi: "Bütün Siparişler Özet Raporu",
-    sorgu: "butunSiparisOzet"
+    sorgu: "butunSiparisOzet",
   },
   {
     butonAdi: "Teklifler",
-    sorgu: "teklifler"
+    sorgu: "teklifler",
   },
   {
     butonAdi: "Stok Kartları Raporu",
-    sorgu: "stokKartlari"
+    sorgu: "stokKartlari",
   },
   {
     butonAdi: "Ön Maliyet Çalışmaları",
-    sorgu: "onMaliyet"
+    sorgu: "onMaliyet",
   },
   {
     butonAdi: "Kayra İş Emri Raporu",
-    sorgu: "kayraIsEmri"
+    sorgu: "kayraIsEmri",
   },
   {
     butonAdi: "Kayra Kesilen e-irsaliyeler",
-    sorgu: "kayraEIrsaliye"
+    sorgu: "kayraEIrsaliye",
   },
-]
+];
 
-export { gridOptions, butonlar }
+export { gridOptions, butonlar };

@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import DetayTablo from './DetayTablo'
-import { ToastContainer } from 'react-toastify'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ToastContainer } from "react-toastify";
+import DetayTablo from "./DetayTablo";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <DetayTablo/>
+    <DetayTablo />
     <ToastContainer
       position="bottom-center"
       autoClose={3000}
@@ -18,4 +18,4 @@ createRoot(document.getElementById('root')).render(
       theme="colored"
     />
   </StrictMode>,
-)
+);
