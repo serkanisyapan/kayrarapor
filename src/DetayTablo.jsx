@@ -94,9 +94,10 @@ function DetayTablo() {
   }, [detayRaporu])
 
   return (
-    <>
-        <div>
+    <div style={{height:'100vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{width: '95%'}}>
           <select
+            style={{ marginBottom: '20px' }}
             disabled={loading}
             defaultValue={""}
             onChange={(event) => {
@@ -118,35 +119,35 @@ function DetayTablo() {
               </option>
             ))}
           </select>
+          <div style={{display: "flex", gap: "10px", justifyContent: "center", alignItems: "center"}}>
+            <h2>{raporName}</h2>
+            {
+              raporName && 
+              <button className={"rapor-button"} onClick={() => importExcelFile()}>
+                <ExportButtonSVG/> 
+                ({raporName}.xlsx)
+              </button>
+            }
+          </div>
+          <div style={{height: 630}}>
+            <AgGridReact 
+              ref={gridRef}
+              rowData={detayRaporu} 
+              columnDefs={colDefs}
+              {...gridOptions}
+              onSelectionChanged={() => {
+                const seciliSiparisler = gridRef.current.api.getSelectedRows()
+                setSeciliSiparisSayisi(seciliSiparisler.length)
+              }}
+            />
+          </div>
+          {raporName === "Açık Sipariş Detay Raporu" && 
+          // so this button is aligned with the table on the left but i want it to be shorted not 95% width
+          <button disabled={!seciliSiparisSayisi} className={'rapor-button'} onClick={() => siparisleriKapat()}>
+            Siparişleri Kapat ({`${seciliSiparisSayisi} sipariş`}) 
+          </button>}
         </div>
-        <div style={{display: "flex", gap: "10px", justifyContent: "center", alignItems: "center"}}>
-          <h2>{raporName}</h2>
-          {
-            raporName && 
-            <button className={"rapor-button"} onClick={() => importExcelFile()}>
-              <ExportButtonSVG/> 
-              ({raporName}.xlsx)
-            </button>
-          }
-        </div>
-        {detayRaporu.length > 0 && 
-        <div style={{height: 600}}>
-          <AgGridReact 
-            ref={gridRef}
-            rowData={detayRaporu} 
-            columnDefs={colDefs}
-            {...gridOptions}
-            onSelectionChanged={() => {
-              const seciliSiparisler = gridRef.current.api.getSelectedRows()
-              setSeciliSiparisSayisi(seciliSiparisler.length)
-            }}
-          />
-        </div>}
-        {raporName === "Açık Sipariş Detay Raporu" && 
-        <button disabled={!seciliSiparisSayisi} className={'rapor-button'} onClick={() => siparisleriKapat()}>
-          Siparişleri Kapat ({`${seciliSiparisSayisi} sipariş`}) 
-        </button>}
-    </>
+    </div>
   )}
 
 export default DetayTablo

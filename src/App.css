@@ -48,3 +48,7 @@ select:focus {
 select:disabled {
     cursor: not-allowed
 }
+
+.ag-body-vertical-scroll { 
+  display: none;
+}
