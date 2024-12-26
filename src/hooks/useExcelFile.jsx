@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { utils, writeFile } from "xlsx";
 
 export const useExcelFile = (ref, raporName) => {
@@ -9,11 +8,11 @@ export const useExcelFile = (ref, raporName) => {
     writeFile(workbook, `${name}.xlsx`, { compression: true });
   };
 
-  const importExcelFile = useCallback(() => {
+  const importExcelFile = () => {
     const data = [];
     ref.current.api.forEachNodeAfterFilter((node) => data.push(node.data));
     createExcelFile(data, raporName);
-  }, [raporName, ref]);
+  };
 
   return { importExcelFile };
 };

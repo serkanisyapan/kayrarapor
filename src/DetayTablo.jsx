@@ -26,6 +26,7 @@ function DetayTablo() {
   const [colDefs, setColDefs] = useState([]);
   const [seciliSiparisSayisi, setSeciliSiparisSayisi] = useState(0);
   const { importExcelFile } = useExcelFile(gridRef, raporName);
+  useCopyCell(gridRef);
 
   const fetchDetayRaporu = async (raporTipi) => {
     setLoading(true);
@@ -92,18 +93,6 @@ function DetayTablo() {
       [raporTipi]: fetchedRapor,
     }));
   };
-
-  const handleCopyCellValue = () => {
-    const api = gridRef.current.api;
-    const focusedCell = api.getFocusedCell();
-    const row = api.getDisplayedRowAtIndex(focusedCell.rowIndex);
-    const cellValue = api.getCellValue({
-      rowNode: row,
-      colKey: focusedCell.column,
-    });
-    navigator.clipboard.writeText(cellValue);
-  };
-  useCopyCell(handleCopyCellValue);
 
   useEffect(() => {
     if (detayRaporu.length === 0) return;
@@ -196,6 +185,7 @@ function DetayTablo() {
         </div>
         {raporName === "Açık Sipariş Detay Raporu" && (
           <button
+            style={{ marginTop: "20px" }}
             type="button"
             disabled={!seciliSiparisSayisi}
             className={"rapor-button"}
