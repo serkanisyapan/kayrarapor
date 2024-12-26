@@ -7,7 +7,7 @@ export const ExportButtonSVG = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title>Export Button Icon</title>
+      <title>Dışarı Aktar butonu ikonu</title>
       <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
       <g

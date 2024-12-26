@@ -120,6 +120,7 @@ function DetayTablo() {
     >
       <div style={{ width: "95%" }}>
         <select
+          title="Görüntülemek istediğiniz raporu seçin"
           style={{ marginBottom: "20px" }}
           disabled={loading}
           defaultValue={""}
@@ -153,6 +154,7 @@ function DetayTablo() {
           }}
         >
           <button
+            title="Filtreleri sıfırla"
             style={{ marginRight: "30%", background: "none", border: "none" }}
             className="rapor-button"
             type="button"
@@ -163,6 +165,7 @@ function DetayTablo() {
           <h2>{raporName}</h2>
           {raporName && (
             <button
+              title="Raporu excel'e aktar"
               type="button"
               className={"rapor-button"}
               onClick={() => importExcelFile()}
@@ -185,6 +188,7 @@ function DetayTablo() {
         </div>
         {raporName === "Açık Sipariş Detay Raporu" && (
           <button
+            title="Seçili siparişleri kapat"
             style={{ marginTop: "20px" }}
             type="button"
             disabled={!seciliSiparisSayisi}
