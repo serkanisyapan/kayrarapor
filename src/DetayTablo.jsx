@@ -15,7 +15,6 @@ import "./App.css";
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule, CsvExportModule]);
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function DetayTablo() {
   const gridRef = useRef(null);
@@ -28,9 +27,11 @@ function DetayTablo() {
   const { importExcelFile } = useExcelFile(gridRef, raporName);
   useCopyCell(gridRef);
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const fetchDetayRaporu = async (raporTipi) => {
     setLoading(true);
-    const url = `http://${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
+    const url = `${BASE_URL}/detayraporlari?rapor=${raporTipi}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -51,7 +52,7 @@ function DetayTablo() {
   };
 
   const siparisleriKapat = async () => {
-    const url = `http://${BASE_URL}/sipariskapat`;
+    const url = `${BASE_URL}/sipariskapat`;
     const kapatilacakSiparisler = secilenSiparisleriBul();
     const isConfirmed = confirm(
       `Siparişleri kapatmak istiyor musunuz? (${kapatilacakSiparisler.length} sipariş)`,
