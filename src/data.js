@@ -59,6 +59,14 @@ const butonlar = [
     butonAdi: "Kayra Kesilen e-irsaliyeler",
     sorgu: "kayraEIrsaliye",
   },
+  {
+    butonAdi: "2024 Yıl Sonu Lüleburgaz Sayım Raporu",
+    sorgu: "luleburgaz2024",
+  },
+  {
+    butonAdi: "2024 Yıl Sonu İstanbul Sayım Raporu",
+    sorgu: "istanbul2024",
+  },
 ];
 
 export { gridOptions, butonlar };
