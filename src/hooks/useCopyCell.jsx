@@ -14,7 +14,10 @@ export const useCopyCell = (ref) => {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === "c") {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        (event.key === "c" || event.key === "C")
+      ) {
         handleCopyCellValue();
       }
     };

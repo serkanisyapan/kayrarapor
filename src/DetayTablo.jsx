@@ -104,6 +104,7 @@ function DetayTablo() {
       return Object.keys(firstEntry).map((key) => ({
         field: key,
         filter: true,
+        floatingFilter: true,
       }));
     };
     const newColDef = getColDefs(detayRaporu);
